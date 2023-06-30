@@ -22,9 +22,9 @@ class MainActivity : AppCompatActivity() {
 
         val tabLayoutMediator = TabLayoutMediator(bind.tabs, bind.viewPager) { tab, position ->
             when(position) {
-                0 -> tab.text = "Red"
-                1 -> tab.text = "Green"
-                2 -> tab.text = "Blue"
+                0 -> tab.text = "Contact"
+                1 -> tab.text = "Gallery"
+                2 -> tab.text = "???"
             }
         }
 
@@ -44,15 +44,11 @@ class MainActivity : AppCompatActivity() {
 
         override fun createFragment(position: Int): Fragment {
             return when(position) {
-                0 -> GalleryFragment()  // todo: ContactFragment
+                0 -> ContactFragment()
                 1 -> GalleryFragment()
                 2 -> GalleryFragment()  // todo: Tab3Fragment
                 else -> throw RuntimeException("Invalid Position : $position")
             }
         }
     }
-
-//    class ViewPagerFragment: Fragment(R.layout.fragment_view_pager) {
-//
-//    }
 }

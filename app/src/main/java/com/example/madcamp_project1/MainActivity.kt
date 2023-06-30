@@ -28,27 +28,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        bind.viewPager.adapter = MyAdapter(this)
+        bind.viewPager.adapter = ViewAdapter(this)
         tabLayoutMediator.attach()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _bind = null
-    }
-
-    class MyAdapter(activity: AppCompatActivity): FragmentStateAdapter(activity) {
-        override fun getItemCount(): Int {
-            return 3
-        }
-
-        override fun createFragment(position: Int): Fragment {
-            return when(position) {
-                0 -> ContactFragment()
-                1 -> GalleryFragment()
-                2 -> GalleryFragment()  // todo: Tab3Fragment
-                else -> throw RuntimeException("Invalid Position : $position")
-            }
-        }
     }
 }

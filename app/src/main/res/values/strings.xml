@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">madcamp_project1</string>
+    <string name="hello_gallery_fragment">Hello gallery fragment</string>
 </resources>

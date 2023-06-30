@@ -3,6 +3,7 @@ package com.example.madcamp_project1
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.madcamp_project1.gallery.GalleryFragment
 import java.lang.RuntimeException
 
 class ViewAdapter(activity: AppCompatActivity): FragmentStateAdapter(activity) {

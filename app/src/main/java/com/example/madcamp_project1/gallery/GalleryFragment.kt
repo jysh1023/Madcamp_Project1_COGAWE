@@ -14,6 +14,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.madcamp_project1.GalleryActivity
 import com.example.madcamp_project1.R
 import com.example.madcamp_project1.databinding.FragmentGalleryBinding
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.io.IOException
 import android.util.Pair as UtilPair
 
 class GalleryFragment : Fragment() {
@@ -37,57 +40,43 @@ class GalleryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val mDatas: MutableList<PhotoData> = mutableListOf()
-        with(mDatas){
-            add(PhotoData("https://madcamp.io/img/intro-together.3087da89.png","몰입캠프"))
-            add(PhotoData("https://avatars.githubusercontent.com/u/86835564?s=200&v=4","몰입캠프 GitHub"))
-            add(PhotoData("https://madcamp.io/img/intro-other-life-1.b6a0fa59.jpg","몰입캠프2"))
-            add(PhotoData("https://madcamp.io/img/intro-immerse-1.a041fbd6.jpg","몰입캠프3"))
-            add(PhotoData("https://blog.kakaocdn.net/dn/vzQh8/btqTDcAHG3c/BBq0prrRsJMXyeAYw7kkN0/img.jpg","카이스트 몰입캠프 MADCAMP 참가 후기"))
-            add(PhotoData("","img2"))
-            add(PhotoData("https://madcamp.io/img/intro-together.3087da89.png","몰입캠프"))
-            add(PhotoData("https://avatars.githubusercontent.com/u/86835564?s=200&v=4","몰입캠프 GitHub"))
-            add(PhotoData("https://madcamp.io/img/intro-other-life-1.b6a0fa59.jpg","몰입캠프2"))
-            add(PhotoData("https://madcamp.io/img/intro-immerse-1.a041fbd6.jpg","몰입캠프3"))
-            add(PhotoData("https://blog.kakaocdn.net/dn/vzQh8/btqTDcAHG3c/BBq0prrRsJMXyeAYw7kkN0/img.jpg","카이스트 몰입캠프 MADCAMP 참가 후기"))
-            add(PhotoData("","img2"))
-            add(PhotoData("https://madcamp.io/img/intro-together.3087da89.png","몰입캠프"))
-            add(PhotoData("https://avatars.githubusercontent.com/u/86835564?s=200&v=4","몰입캠프 GitHub"))
-            add(PhotoData("https://madcamp.io/img/intro-other-life-1.b6a0fa59.jpg","몰입캠프2"))
-            add(PhotoData("https://madcamp.io/img/intro-immerse-1.a041fbd6.jpg","몰입캠프3"))
-            add(PhotoData("https://blog.kakaocdn.net/dn/vzQh8/btqTDcAHG3c/BBq0prrRsJMXyeAYw7kkN0/img.jpg","카이스트 몰입캠프 MADCAMP 참가 후기"))
-            add(PhotoData("","img2"))
-            add(PhotoData("","img2"))
-            add(PhotoData("https://madcamp.io/img/intro-together.3087da89.png","몰입캠프"))
-            add(PhotoData("https://avatars.githubusercontent.com/u/86835564?s=200&v=4","몰입캠프 GitHub"))
-            add(PhotoData("https://madcamp.io/img/intro-other-life-1.b6a0fa59.jpg","몰입캠프2"))
-            add(PhotoData("https://madcamp.io/img/intro-immerse-1.a041fbd6.jpg","몰입캠프3"))
-            add(PhotoData("https://blog.kakaocdn.net/dn/vzQh8/btqTDcAHG3c/BBq0prrRsJMXyeAYw7kkN0/img.jpg","카이스트 몰입캠프 MADCAMP 참가 후기"))
-            add(PhotoData("","img2"))
-        }
         val adapter = RecyclerViewAdapter()
-        adapter.setOnItemClickListener(object: RecyclerViewAdapter.OnItemClickListener {
+        adapter.setOnItemClickListener(object : RecyclerViewAdapter.OnItemClickListener {
             override fun onItemClick(v: View, data: PhotoData, pos: Int) {
                 val intent: Intent = Intent(activity, GalleryActivity::class.java)
-//                intent.putExtra("photoUri", data.photoUri)
-//                intent.putExtra("photoDescription", data.photoDescription)
                 intent.putExtra("photoData", data)
                 intent.putExtra("position", pos)
 
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     val imgView: View = v.findViewById<ImageView>(R.id.photoPreview)
-                    val options: ActivityOptions = ActivityOptions.makeSceneTransitionAnimation(activity,
+                    val options: ActivityOptions = ActivityOptions.makeSceneTransitionAnimation(
+                        activity,
                         UtilPair.create(imgView, imgView.transitionName)
                     )
                     startActivity(intent, options.toBundle())
-                }
-                else {
+                } else {
                     startActivity(intent)
                 }
             }
         })
-        adapter.photoList = mDatas
+        adapter.photoList = readFromJSON("gallery.json") ?: mutableListOf()
         bind.recyclerView.adapter = adapter
-        bind.recyclerView.layoutManager = GridLayoutManager(activity, 3, RecyclerView.VERTICAL, false)
+        bind.recyclerView.layoutManager =
+            GridLayoutManager(activity, 3, RecyclerView.VERTICAL, false)
+    }
+
+    private fun readFromJSON(fileName: String): MutableList<PhotoData>? {
+        val assetManager = resources.assets
+        var result: MutableList<PhotoData>? = null
+
+        try {
+            val inputStream = assetManager.open(fileName)
+            val reader = inputStream.bufferedReader()
+            val gson = Gson()
+            result = gson.fromJson(reader, object : TypeToken<MutableList<PhotoData>>() {}.type)
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return result
     }
 }

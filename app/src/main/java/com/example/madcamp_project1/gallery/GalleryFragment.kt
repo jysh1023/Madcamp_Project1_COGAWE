@@ -45,7 +45,6 @@ class GalleryFragment : Fragment() {
             add(PhotoData("","img9"))
             add(PhotoData("","img10"))
             add(PhotoData("","img11"))
-            add(PhotoData("","img12"))
         }
         val adapter = RecyclerViewAdapter()
         adapter.photoList = mDatas

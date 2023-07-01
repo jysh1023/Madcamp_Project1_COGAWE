@@ -9,7 +9,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import java.lang.RuntimeException
 
 class MainActivity : AppCompatActivity() {
-
     private var _bind: ActivityMainBinding? = null
     private val bind get() = _bind!!
 

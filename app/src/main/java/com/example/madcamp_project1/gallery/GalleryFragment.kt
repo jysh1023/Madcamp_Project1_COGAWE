@@ -1,5 +1,6 @@
 package com.example.madcamp_project1.gallery
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.madcamp_project1.GalleryActivity
+import com.example.madcamp_project1.MainActivity
 import com.example.madcamp_project1.databinding.FragmentGalleryBinding
 
 class GalleryFragment : Fragment() {
@@ -47,6 +50,14 @@ class GalleryFragment : Fragment() {
             add(PhotoData("","img11"))
         }
         val adapter = RecyclerViewAdapter()
+        adapter.setOnItemClickListener(object: RecyclerViewAdapter.OnItemClickListener {
+            override fun onItemClick(v: View, data: PhotoData, pos: Int) {
+                val intent: Intent = Intent(activity, GalleryActivity::class.java)
+                intent.putExtra("photoUri", data.photoUri)
+                intent.putExtra("photoDescription", data.photoDescription)
+                startActivity(intent)
+            }
+        })
         adapter.photoList = mDatas
         bind.recyclerView.adapter = adapter
         bind.recyclerView.layoutManager = GridLayoutManager(activity, 3, RecyclerView.VERTICAL, false)

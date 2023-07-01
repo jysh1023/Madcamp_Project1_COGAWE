@@ -44,7 +44,7 @@ class GalleryFragment : Fragment() {
         adapter.setOnItemClickListener(object : RecyclerViewAdapter.OnItemClickListener {
             override fun onItemClick(v: View, data: PhotoData, pos: Int) {
                 val intent: Intent = Intent(activity, GalleryActivity::class.java)
-                intent.putExtra("photoData", data)
+//                intent.putExtra("photoData", data)
                 intent.putExtra("position", pos)
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

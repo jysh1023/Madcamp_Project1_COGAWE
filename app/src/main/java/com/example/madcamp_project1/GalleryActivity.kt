@@ -26,7 +26,7 @@ class GalleryActivity : AppCompatActivity() {
             .load(if(data.photoUri.isNullOrBlank()) "https://avatars.githubusercontent.com/u/86835564?s=200&v=4" else data.photoUri)
             .resizeDimen(R.dimen.gallery_image_width, R.dimen.gallery_image_height)
             .centerInside()
-            .into(mBinding.fullPhotoImgView)
+            .into(mBinding.photoDetail)
         mBinding.fullDescriptionTextView.text = data.photoDescription
     }
 }

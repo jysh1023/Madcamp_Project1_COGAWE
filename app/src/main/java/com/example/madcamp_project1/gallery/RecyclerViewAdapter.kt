@@ -29,8 +29,8 @@ class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(
 //                .fit()
                 .resizeDimen(R.dimen.gallery_image_width, R.dimen.gallery_image_height)
                 .centerCrop()
-                .into(binding.photoImgView)
-            binding.descriptionTextView.text = photoData.photoDescription
+                .into(binding.photoPreview)
+//            binding.descriptionTextView.text = photoData.photoDescription
 
             val pos = adapterPosition
             if(pos == RecyclerView.NO_POSITION) {

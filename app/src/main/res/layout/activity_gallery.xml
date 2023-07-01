@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/fullPhotoImgView"
+            android:id="@+id/photoDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:transitionName="imgTransition"
@@ -33,7 +33,7 @@
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fullPhotoImgView" />
+            app:layout_constraintTop_toBottomOf="@+id/photoDetail" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

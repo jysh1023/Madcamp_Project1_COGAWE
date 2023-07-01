@@ -57,6 +57,13 @@ class GalleryFragment : Fragment() {
             add(PhotoData("https://madcamp.io/img/intro-immerse-1.a041fbd6.jpg","몰입캠프3"))
             add(PhotoData("https://blog.kakaocdn.net/dn/vzQh8/btqTDcAHG3c/BBq0prrRsJMXyeAYw7kkN0/img.jpg","카이스트 몰입캠프 MADCAMP 참가 후기"))
             add(PhotoData("","img2"))
+            add(PhotoData("","img2"))
+            add(PhotoData("https://madcamp.io/img/intro-together.3087da89.png","몰입캠프"))
+            add(PhotoData("https://avatars.githubusercontent.com/u/86835564?s=200&v=4","몰입캠프 GitHub"))
+            add(PhotoData("https://madcamp.io/img/intro-other-life-1.b6a0fa59.jpg","몰입캠프2"))
+            add(PhotoData("https://madcamp.io/img/intro-immerse-1.a041fbd6.jpg","몰입캠프3"))
+            add(PhotoData("https://blog.kakaocdn.net/dn/vzQh8/btqTDcAHG3c/BBq0prrRsJMXyeAYw7kkN0/img.jpg","카이스트 몰입캠프 MADCAMP 참가 후기"))
+            add(PhotoData("","img2"))
         }
         val adapter = RecyclerViewAdapter()
         adapter.setOnItemClickListener(object: RecyclerViewAdapter.OnItemClickListener {
@@ -68,7 +75,7 @@ class GalleryFragment : Fragment() {
                 intent.putExtra("position", pos)
 
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    val imgView: View = v.findViewById<ImageView>(R.id.photoImgView)
+                    val imgView: View = v.findViewById<ImageView>(R.id.photoPreview)
                     val options: ActivityOptions = ActivityOptions.makeSceneTransitionAnimation(activity,
                         UtilPair.create(imgView, imgView.transitionName)
                     )

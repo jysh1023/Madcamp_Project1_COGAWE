@@ -6,7 +6,6 @@ data class ContactData (
     @SerializedName("name") var name: String,
     @SerializedName("contact") var contact: String
 
-
 )
 
 

@@ -3,7 +3,9 @@ package com.example.madcamp_project1.gallery
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.madcamp_project1.R
 import com.example.madcamp_project1.databinding.ItemPhotoBinding
+import com.squareup.picasso.Picasso
 
 class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
@@ -11,8 +13,13 @@ class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(
 
     inner class ViewHolder(private val binding: ItemPhotoBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(photoData: PhotoData) {
-//            binding.photo.setImageResource()
-            binding.description.text = photoData.description
+            Picasso.get()
+                .load(if(photoData.photoUri.isNullOrBlank()) "https://avatars.githubusercontent.com/u/86835564?s=200&v=4" else photoData.photoUri)
+//                .fit()
+                .resizeDimen(R.dimen.gallery_image_width, R.dimen.gallery_image_height)
+                .centerCrop()
+                .into(binding.photoImgView)
+            binding.descriptionTextView.text = photoData.photoDescription
         }
     }
 

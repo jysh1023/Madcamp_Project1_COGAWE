@@ -1,18 +1,14 @@
 package com.example.madcamp_project1.gallery
 
 import android.os.Bundle
-import android.provider.ContactsContract.Contacts.Photo
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.madcamp_project1.R
-import com.example.madcamp_project1.databinding.ActivityMainBinding
 import com.example.madcamp_project1.databinding.FragmentGalleryBinding
-import com.example.madcamp_project1.databinding.ItemPhotoBinding
 
 class GalleryFragment : Fragment() {
 
@@ -35,40 +31,24 @@ class GalleryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        val mDatas: MutableList<PhotoData> = mutableListOf()
-//        with(mDatas){
-//            add(PhotoData("","dog1"))
-//            add(PhotoData("","dog2"))
-//            add(PhotoData("","dog3"))
-//            add(PhotoData("","dog4"))
-//            add(PhotoData("","dog5"))
-//            add(PhotoData("","dog2"))
-//            add(PhotoData("","dog6"))
-//            add(PhotoData("","dog7"))
-//            add(PhotoData("","dog8"))
-//            add(PhotoData("","dog9"))
-//            add(PhotoData("","dog10"))
-//            add(PhotoData("","dog11"))
-//            add(PhotoData("","dog12"))
-//        }
-        val adapter = RecyclerViewAdapter()
-//        adapter.photoList = mDatas
-        with(adapter.photoList) {
-            add(PhotoData("","photo1"))
-            add(PhotoData("","photo2"))
-            add(PhotoData("","photo3"))
-            add(PhotoData("","photo4"))
-            add(PhotoData("","photo5"))
-            add(PhotoData("","photo2"))
-            add(PhotoData("","photo6"))
-            add(PhotoData("","photo7"))
-            add(PhotoData("","photo8"))
-            add(PhotoData("","photo9"))
-            add(PhotoData("","photo10"))
-            add(PhotoData("","photo11"))
-            add(PhotoData("","photo12"))
+        val mDatas: MutableList<PhotoData> = mutableListOf()
+        with(mDatas){
+            add(PhotoData("https://madcamp.io/img/intro-together.3087da89.png","몰입캠프"))
+            add(PhotoData("https://avatars.githubusercontent.com/u/86835564?s=200&v=4","몰입캠프 GitHub"))
+            add(PhotoData("https://madcamp.io/img/intro-other-life-1.b6a0fa59.jpg","몰입캠프2"))
+            add(PhotoData("https://madcamp.io/img/intro-immerse-1.a041fbd6.jpg","몰입캠프3"))
+            add(PhotoData("https://blog.kakaocdn.net/dn/vzQh8/btqTDcAHG3c/BBq0prrRsJMXyeAYw7kkN0/img.jpg","카이스트 몰입캠프 MADCAMP 참가 후기"))
+            add(PhotoData("","img2"))
+            add(PhotoData("","img6"))
+            add(PhotoData("","img7"))
+            add(PhotoData("","img8"))
+            add(PhotoData("","img9"))
+            add(PhotoData("","img10"))
+            add(PhotoData("","img11"))
         }
+        val adapter = RecyclerViewAdapter()
+        adapter.photoList = mDatas
         bind.recyclerView.adapter = adapter
-        bind.recyclerView.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+        bind.recyclerView.layoutManager = GridLayoutManager(activity, 3, RecyclerView.VERTICAL, false)
     }
 }

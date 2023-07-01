@@ -1,6 +1,8 @@
 package com.example.madcamp_project1.gallery
 
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.madcamp_project1.R
@@ -11,6 +13,15 @@ class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(
 
     var photoList: MutableList<PhotoData> = mutableListOf()
 
+    interface OnItemClickListener {
+        fun onItemClick(v: View, data: PhotoData, pos: Int)
+    }
+
+    private var listener: OnItemClickListener? = null
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        this.listener = listener
+    }
+
     inner class ViewHolder(private val binding: ItemPhotoBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(photoData: PhotoData) {
             Picasso.get()
@@ -18,8 +29,17 @@ class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(
 //                .fit()
                 .resizeDimen(R.dimen.gallery_image_width, R.dimen.gallery_image_height)
                 .centerCrop()
-                .into(binding.photoImgView)
-            binding.descriptionTextView.text = photoData.photoDescription
+                .into(binding.photoPreview)
+//            binding.descriptionTextView.text = photoData.photoDescription
+
+            val pos = adapterPosition
+            if(pos == RecyclerView.NO_POSITION) {
+                Log.d("LOG", "recycler view no position")
+                return
+            }
+            itemView.setOnClickListener{
+                listener?.onItemClick(itemView, photoData, pos)
+            }
         }
     }
 

@@ -4,11 +4,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.madcamp_project1.databinding.ActivityGalleryBinding
 import com.example.madcamp_project1.gallery.PhotoData
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.squareup.picasso.Picasso
+import java.io.IOException
 import java.lang.IllegalStateException
 
 class GalleryActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityGalleryBinding
+    private var photoDataList: ArrayList<PhotoData>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,16 +21,32 @@ class GalleryActivity : AppCompatActivity() {
         mBinding = ActivityGalleryBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-        val data: PhotoData = intent?.getSerializableExtra("photoData") as PhotoData
+        photoDataList = readFromJSON("gallery.json") ?: arrayListOf()
+
         val pos: Int? = intent?.getIntExtra("position", -1)
         if(pos == -1 || pos == null) {
             throw IllegalStateException("invalid position in gallery activity")
         }
-        Picasso.get()
-            .load(if(data.photoUri.isNullOrBlank()) "https://avatars.githubusercontent.com/u/86835564?s=200&v=4" else data.photoUri)
-            .resizeDimen(R.dimen.gallery_image_width, R.dimen.gallery_image_height)
-            .centerInside()
-            .into(mBinding.photoDetail)
-        mBinding.fullDescriptionTextView.text = data.photoDescription
+        with(mBinding) {
+            viewPagerPhotoDetail.adapter = GalleryViewPagerAdapter(photoDataList!!)
+            viewPagerPhotoDetail.post {
+                viewPagerPhotoDetail.setCurrentItem(pos, false)
+            }
+        }
+    }
+
+    private fun readFromJSON(fileName: String): ArrayList<PhotoData>? {
+        val assetManager = resources.assets
+        var result: ArrayList<PhotoData>? = null
+
+        try {
+            val inputStream = assetManager.open(fileName)
+            val reader = inputStream.bufferedReader()
+            val gson = Gson()
+            result = gson.fromJson(reader, object : TypeToken<ArrayList<PhotoData>>() {}.type)
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return result
     }
 }

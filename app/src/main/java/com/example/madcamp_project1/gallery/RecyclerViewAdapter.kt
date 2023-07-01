@@ -9,7 +9,7 @@ import com.example.madcamp_project1.R
 import com.example.madcamp_project1.databinding.ItemPhotoBinding
 import com.squareup.picasso.Picasso
 
-class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
     var photoList: MutableList<PhotoData> = mutableListOf()
 
@@ -22,27 +22,6 @@ class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(
         this.listener = listener
     }
 
-    inner class ViewHolder(private val binding: ItemPhotoBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(photoData: PhotoData) {
-            Picasso.get()
-                .load(if(photoData.photoUri.isNullOrBlank()) "https://avatars.githubusercontent.com/u/86835564?s=200&v=4" else photoData.photoUri)
-//                .fit()
-                .resizeDimen(R.dimen.gallery_image_width, R.dimen.gallery_image_height)
-                .centerCrop()
-                .into(binding.photoPreview)
-//            binding.descriptionTextView.text = photoData.photoDescription
-
-            val pos = adapterPosition
-            if(pos == RecyclerView.NO_POSITION) {
-                Log.d("LOG", "recycler view no position")
-                return
-            }
-            itemView.setOnClickListener{
-                listener?.onItemClick(itemView, photoData, pos)
-            }
-        }
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemPhotoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
@@ -52,5 +31,27 @@ class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(photoList[position])
+    }
+
+    inner class ViewHolder(private val binding: ItemPhotoBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(photoData: PhotoData) {
+            Picasso.get()
+                .load(if (photoData.photoUri.isNullOrBlank()) "https://avatars.githubusercontent.com/u/86835564?s=200&v=4" else photoData.photoUri)
+//                .fit()
+                .resizeDimen(R.dimen.gallery_image_width, R.dimen.gallery_image_height)
+                .centerCrop()
+                .into(binding.photoPreview)
+//            binding.descriptionTextView.text = photoData.photoDescription
+
+            val pos = adapterPosition
+            if (pos == RecyclerView.NO_POSITION) {
+                Log.d("LOG", "recycler view no position")
+                return
+            }
+            itemView.setOnClickListener {
+                listener?.onItemClick(itemView, photoData, pos)
+            }
+        }
     }
 }

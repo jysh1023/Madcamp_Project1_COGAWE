@@ -2,11 +2,8 @@ package com.example.madcamp_project1
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.madcamp_project1.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
-import java.lang.RuntimeException
 
 class MainActivity : AppCompatActivity() {
     private var _bind: ActivityMainBinding? = null

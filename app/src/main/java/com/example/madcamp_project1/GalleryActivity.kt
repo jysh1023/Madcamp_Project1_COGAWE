@@ -6,28 +6,27 @@ import com.example.madcamp_project1.databinding.ActivityGalleryBinding
 import com.example.madcamp_project1.gallery.PhotoData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.squareup.picasso.Picasso
 import java.io.IOException
 import java.lang.IllegalStateException
 
 class GalleryActivity : AppCompatActivity() {
-    private lateinit var mBinding: ActivityGalleryBinding
+    private var _binding: ActivityGalleryBinding? = null
+    private val binding get() = _binding!!
     private var photoDataList: ArrayList<PhotoData>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_gallery)
 
-        mBinding = ActivityGalleryBinding.inflate(layoutInflater)
-        setContentView(mBinding.root)
+        _binding = ActivityGalleryBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         photoDataList = readFromJSON("gallery.json") ?: arrayListOf()
 
         val pos: Int? = intent?.getIntExtra("position", -1)
-        if(pos == -1 || pos == null) {
+        if (pos == -1 || pos == null) {
             throw IllegalStateException("invalid position in gallery activity")
         }
-        with(mBinding) {
+        with(binding) {
             viewPagerPhotoDetail.adapter = GalleryViewPagerAdapter(photoDataList!!)
             viewPagerPhotoDetail.post {
                 viewPagerPhotoDetail.setCurrentItem(pos, false)

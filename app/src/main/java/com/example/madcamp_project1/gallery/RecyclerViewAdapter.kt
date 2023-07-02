@@ -1,6 +1,5 @@
 package com.example.madcamp_project1.gallery
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.madcamp_project1.R
 import com.example.madcamp_project1.databinding.ItemPhotoBinding
 import com.squareup.picasso.Picasso
+import java.lang.IllegalStateException
 
 class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
-
     var photoList: MutableList<PhotoData> = mutableListOf()
 
     interface OnItemClickListener {
@@ -38,16 +37,13 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
         fun bind(photoData: PhotoData) {
             Picasso.get()
                 .load(if (photoData.photoUri.isNullOrBlank()) "https://avatars.githubusercontent.com/u/86835564?s=200&v=4" else photoData.photoUri)
-//                .fit()
                 .resizeDimen(R.dimen.gallery_image_width, R.dimen.gallery_image_height)
                 .centerCrop()
                 .into(binding.photoPreview)
-//            binding.descriptionTextView.text = photoData.photoDescription
 
             val pos = adapterPosition
             if (pos == RecyclerView.NO_POSITION) {
-                Log.d("LOG", "recycler view no position")
-                return
+                throw IllegalStateException("invalid position in gallery activity")
             }
             itemView.setOnClickListener {
                 listener?.onItemClick(itemView, photoData, pos)

@@ -36,7 +36,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
         RecyclerView.ViewHolder(binding.root) {
         fun bind(photoData: PhotoData) {
             Picasso.get()
-                .load(if (photoData.photoUri.isNullOrBlank()) "https://avatars.githubusercontent.com/u/86835564?s=200&v=4" else photoData.photoUri)
+                .load(photoData.photoUri.ifBlank { "https://avatars.githubusercontent.com/u/86835564?s=200&v=4" })
                 .resizeDimen(R.dimen.gallery_image_width, R.dimen.gallery_image_height)
                 .centerCrop()
                 .into(binding.photoPreview)

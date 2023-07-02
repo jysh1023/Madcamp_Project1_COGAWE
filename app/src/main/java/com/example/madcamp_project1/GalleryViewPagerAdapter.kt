@@ -9,7 +9,7 @@ import com.squareup.picasso.Picasso
 
 class GalleryViewPagerAdapter(photoDataList: MutableList<PhotoData>) :
     RecyclerView.Adapter<GalleryViewPagerAdapter.PagerViewHolder>() {
-    var item = photoDataList
+    private var item = photoDataList
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewHolder {
         val binding =
             ItemPhotoDetailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -26,7 +26,7 @@ class GalleryViewPagerAdapter(photoDataList: MutableList<PhotoData>) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: PhotoData) {
             Picasso.get()
-                .load(if (data.photoUri.isNullOrBlank()) "https://avatars.githubusercontent.com/u/86835564?s=200&v=4" else data.photoUri)
+                .load(data.photoUri.ifBlank { "https://avatars.githubusercontent.com/u/86835564?s=200&v=4" })
                 .resizeDimen(R.dimen.gallery_image_width, R.dimen.gallery_image_height)
                 .centerInside()
                 .into(binding.photoDetail)

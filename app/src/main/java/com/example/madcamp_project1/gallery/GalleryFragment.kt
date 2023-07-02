@@ -41,7 +41,7 @@ class GalleryFragment : Fragment() {
         val adapter = RecyclerViewAdapter()
         adapter.setOnItemClickListener(object : RecyclerViewAdapter.OnItemClickListener {
             override fun onItemClick(v: View, data: PhotoData, pos: Int) {
-                val intent: Intent = Intent(activity, GalleryActivity::class.java)
+                val intent = Intent(activity, GalleryActivity::class.java)
                 intent.putExtra("position", pos)
 
                 val imgView: View = v.findViewById<ImageView>(R.id.photoPreview)
@@ -57,6 +57,11 @@ class GalleryFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager =
             GridLayoutManager(activity, 3, RecyclerView.VERTICAL, false)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     private fun readFromJSON(fileName: String): MutableList<PhotoData>? {

@@ -43,13 +43,15 @@ class RecyclerViewAdapter(private val contact:Contact) : RecyclerView.Adapter<Re
                 if (charString.isEmpty()){
                     contactFiltered = contact
                 } else{
+                    var filteredList = ArrayList<ContactData>()
                     if (contact != null) {
                         for (user in contact) {
 
                             if (user.name.lowercase().contains(charString.lowercase())) {
-                                contactFiltered.add(user)
+                                filteredList.add(user)
                             }
                         }
+                        contactFiltered = filteredList
                     }
                 }
 

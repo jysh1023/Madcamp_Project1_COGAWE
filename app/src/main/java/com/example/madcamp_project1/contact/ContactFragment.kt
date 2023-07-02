@@ -17,6 +17,8 @@ class ContactFragment : Fragment(), SearchView.OnQueryTextListener {
     private var _bind: FragmentContactBinding? = null
     private val bind get() = _bind!!
 
+    private lateinit var contactAdapter: RecyclerViewAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -71,11 +73,12 @@ class ContactFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
     override fun onQueryTextSubmit(p0: String?): Boolean {
-        TODO("Not yet implemented")
+        return false
     }
 
     override fun onQueryTextChange(p0: String?): Boolean {
-        TODO("Not yet implemented")
+        contactAdapter.filter.filter(p0)
+        return true
     }
 
 

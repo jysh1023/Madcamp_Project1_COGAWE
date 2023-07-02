@@ -6,14 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
+    <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
         app:title="@string/app_name"
-        android:background="@android:color/holo_purple">
-
-    </androidx.appcompat.widget.Toolbar>
+        app:titleTextColor="@color/white"/>
 
 
     <com.google.android.material.tabs.TabLayout
@@ -28,4 +29,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/tabs" />
+
+
 </RelativeLayout>

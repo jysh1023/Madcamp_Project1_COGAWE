@@ -19,6 +19,8 @@ class ContactFragment : Fragment(){
     private var _bind: FragmentContactBinding? = null
     private val bind get() = _bind!!
 
+    lateinit var contactDetail: ContactDetailDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -44,7 +46,9 @@ class ContactFragment : Fragment(){
         adapter.itemClickListener = object : RecyclerViewAdapter.OnItemClickListener{
             override fun onItemClick(position: Int) {
                 val item = dataset[position]
-                Toast.makeText(context,"Clicked ${item.name}", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(context,"Clicked ${item.name}", Toast.LENGTH_SHORT).show()
+                contactDetail = ContactDetailDialog(item)
+                contactDetail.show(activity?.supportFragmentManager!!, "test")
             }
         }
 
@@ -54,7 +58,7 @@ class ContactFragment : Fragment(){
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                Log.d("My TAG", "detected")
+//                Log.d("My TAG", "detected")
                 adapter.filter.filter(newText)
                 return true
             }

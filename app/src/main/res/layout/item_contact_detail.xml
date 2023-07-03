@@ -63,7 +63,7 @@
             <TextView
                 android:id="@+id/user_contact"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="Contact"
                 android:textSize="13sp"
                 android:textAlignment="center"
@@ -86,7 +86,7 @@
             <TextView
                 android:id="@+id/user_school"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="School"
                 android:textSize="13sp"
                 android:textAlignment="center"
@@ -109,7 +109,7 @@
             <TextView
                 android:id="@+id/user_interest"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="Interest"
                 android:textSize="13sp"
                 android:textAlignment="center"

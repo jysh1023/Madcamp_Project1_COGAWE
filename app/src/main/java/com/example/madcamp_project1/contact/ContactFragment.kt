@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.madcamp_project1.databinding.FragmentContactBinding
@@ -17,6 +18,10 @@ class ContactFragment : Fragment(){
 
     private var _bind: FragmentContactBinding? = null
     private val bind get() = _bind!!
+
+    private lateinit var contactDetail: ContactDetailDialog
+    private lateinit var adapter: RecyclerViewAdapter
+    private lateinit var newContactDialog: NewContactDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,23 +40,28 @@ class ContactFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
         val dataset = readFromJSON("contact.json")
-        val adapter = RecyclerViewAdapter(dataset!!)
+        adapter = RecyclerViewAdapter(dataset!!)
 
         bind.recyclerView.adapter = adapter
         bind.recyclerView.layoutManager=LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+        bind.addContact.setOnClickListener {
+//            Toast.makeText(context,"Pressed", Toast.LENGTH_SHORT).show()
+            newContactDialog =  NewContactDialog()
+            newContactDialog.show(activity?.supportFragmentManager!!,"new contact")
 
-        bind.searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
+        }
+
+        setFilter()
+
+        adapter.itemClickListener = object : RecyclerViewAdapter.OnItemClickListener{
+            override fun onItemClick(position: Int) {
+                val item = adapter.contactFiltered[position]
+//                Toast.makeText(context,"Clicked ${item.name}", Toast.LENGTH_SHORT).show()
+                contactDetail = ContactDetailDialog(item)
+                contactDetail.show(activity?.supportFragmentManager!!, "contact detail")
             }
+        }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                Log.d("My TAG", "detected")
-                adapter.filter.filter(newText)
-                return true
-            }
-
-        })
     }
 
     private fun readFromJSON(fileName: String): Contact? {
@@ -69,5 +79,21 @@ class ContactFragment : Fragment(){
         }
         return result
     }
+
+    private fun setFilter() {
+        bind.searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+//                Log.d("My TAG", "detected")
+                adapter.filter.filter(newText)
+                return true
+            }
+
+        })
+    }
+
 
 }

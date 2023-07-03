@@ -1,5 +1,6 @@
 package com.example.madcamp_project1.contact
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
@@ -13,11 +14,17 @@ class RecyclerViewAdapter(private val contact:Contact) :
 
     var contactFiltered: ArrayList<ContactData> = ArrayList()
 
+    interface OnItemClickListener {
+        fun onItemClick(position: Int){}
+    }
+
+    var itemClickListener: OnItemClickListener?= null
+
     init {
         contactFiltered = contact
     }
 
-    class ViewHolder(private val binding: ItemContactBinding): RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(private val binding: ItemContactBinding): RecyclerView.ViewHolder(binding.root){
 
         fun bind(data: ContactData){
             with(binding) {
@@ -25,6 +32,7 @@ class RecyclerViewAdapter(private val contact:Contact) :
                 userContact.text = data.contact
             }
         }
+
     }
 
 
@@ -35,6 +43,11 @@ class RecyclerViewAdapter(private val contact:Contact) :
 
     override fun onBindViewHolder(holder: RecyclerViewAdapter.ViewHolder, position: Int) {
         holder.bind(contactFiltered[position])
+        holder.itemView.setOnClickListener{
+            Log.d("tag", position.toString())
+            itemClickListener?.onItemClick(position)
+        }
+
     }
 
     override fun getItemCount(): Int {
@@ -55,7 +68,10 @@ class RecyclerViewAdapter(private val contact:Contact) :
 
                             if (user.name.lowercase().contains(charString.lowercase())) {
                                 filteredList.add(user)
+                            } else if (user.contact.contains(charString)){
+                                filteredList.add(user)
                             }
+
                         }
                         contactFiltered = filteredList
                     }
@@ -77,4 +93,5 @@ class RecyclerViewAdapter(private val contact:Contact) :
 
         }
     }
+
 }

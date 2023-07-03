@@ -1,82 +1,122 @@
 [
     {
-      "name": "Name1",
-      "contact": "010-1234-5678"
+      "name": "양성현",
+      "contact": "010-3956-2384",
+      "school": "KAIST",
+      "interest": "영화, 춤, 디자인"
     },
     {
-      "name": "Name2",
-      "contact": "010-1234-5678"
+      "name": "김준서",
+      "contact": "010-2235-4509",
+      "school": "한양대학교",
+      "interest": "PS, 배드민턴"
     },
     {
-      "name": "Name3",
-      "contact": "010-1234-5678"
+      "name": "민지연",
+      "contact": "010-7034-1233",
+      "school": "KAIST",
+      "interest": "배드민턴, 책 읽기"
     },
     {
-      "name": "Name4",
-      "contact": "010-1234-5678"
+      "name": "노수지",
+      "contact": "010-0955-4569",
+      "school": "전남대학교",
+      "interest": "뜨개질, 베이킹, 타로"
     },
     {
-      "name": "Name5",
-      "contact": "010-1234-5678"
+      "name": "장준하",
+      "contact": "010-3455-4522",
+      "school": "KAIST",
+      "interest": "PS, 탁구, 창업, 웹 개발, 게임 엔진"
     },
     {
-      "name": "Name6",
-      "contact": "010-1234-5678"
+      "name": "전지민",
+      "contact": "010-1462-6678",
+      "school": "GIST",
+      "interest": "자기개발, 영화, 운동"
     },
     {
-      "name": "Name7",
-      "contact": "010-1234-5678"
+      "name": "권진현",
+      "contact": "010-8898-5673",
+      "school": "KAIST",
+      "interest": "웹 개발, 클라이밍"
     },
     {
-      "name": "Name8",
-      "contact": "010-1234-5678"
+      "name": "구민재",
+      "contact": "010-2065-1984",
+      "school": "KAIST",
+      "interest": "첼로"
     },
     {
-      "name": "Name9",
-      "contact": "010-1234-5678"
+      "name": "김민규",
+      "contact": "010-4388-5666",
+      "school": "KAIST",
+      "interest": "주식, 스노보드, 게임"
     },
     {
-      "name": "Name10",
-      "contact": "010-1234-5678"
+      "name": "박연진",
+      "contact": "010-3451-5678",
+      "school": "한양대학교",
+      "interest": "배드민턴, 베이킹"
     },
     {
-      "name": "Name11",
-      "contact": "010-1234-5678"
+      "name": "강현서",
+      "contact": "010-1234-3477",
+      "school": "성균관대학교",
+      "interest": "노래 부르기, 베이킹"
     },
     {
-      "name": "Name12",
-      "contact": "010-1234-5678"
+      "name": "오정민",
+      "contact": "010-1145-3211",
+      "school": "포항공과대학교",
+      "interest": "노래 부르기, 여행"
     },
     {
-      "name": "Name13",
-      "contact": "010-1234-5678"
+      "name": "장영욱",
+      "contact": "010-7363-0767",
+      "school": "KAIST",
+      "interest": "사색하기, 대화하기"
     },
     {
-      "name": "Name14",
-      "contact": "010-1234-5678"
+      "name": "김태훈",
+      "contact": "010-3477-1797",
+      "school": "성균관대학교",
+      "interest": "게임"
     },
     {
-      "name": "Name15",
-      "contact": "010-1234-5678"
+      "name": "김민희",
+      "contact": "010-8700-7823",
+      "school": "숙명여대",
+      "interest": "영화, 베이킹"
     },
     {
-      "name": "Name16",
-      "contact": "010-1234-5678"
+      "name": "송도윤",
+      "contact": "010-1126-7634",
+      "school": "GIST",
+      "interest": "수영, 여행, 운전, 영화"
     },
     {
-      "name": "Name17",
-      "contact": "010-1234-5678"
+      "name": "장동우",
+      "contact": "010-9876-5432",
+      "school": "한양대학교",
+      "interest": "게임, 헬스"
     },
     {
-      "name": "Name18",
-      "contact": "010-1234-5678"
+      "name": "윤동규",
+      "contact": "010-7355-2344",
+      "school": "KAIST",
+      "interest": "여행, 헬스, PS"
     },
     {
-      "name": "Name19",
-      "contact": "010-1234-5678"
+      "name": "배민성",
+      "contact": "010-3453-1102",
+      "school": "KAIST",
+      "interest": "영화 보기, 보드게임"
     },
     {
-      "name": "Name20",
-      "contact": "010-1234-5678"
+      "name": "김재민",
+      "contact": "010-9332-7346",
+      "school": "고려대학교",
+      "interest": "게임, 노래 부르기, 노래 듣기, 여행"
     }
 ]

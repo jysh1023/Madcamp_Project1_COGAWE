@@ -1,5 +1,6 @@
 package com.example.madcamp_project1.contact
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
@@ -41,10 +42,12 @@ class RecyclerViewAdapter(private val contact:Contact) :
     }
 
     override fun onBindViewHolder(holder: RecyclerViewAdapter.ViewHolder, position: Int) {
-        holder.bind(contact[position])
+        holder.bind(contactFiltered[position])
         holder.itemView.setOnClickListener{
+            Log.d("tag", position.toString())
             itemClickListener?.onItemClick(position)
         }
+
     }
 
     override fun getItemCount(): Int {
@@ -90,4 +93,5 @@ class RecyclerViewAdapter(private val contact:Contact) :
 
         }
     }
+
 }

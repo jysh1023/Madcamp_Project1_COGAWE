@@ -59,8 +59,8 @@ class GalleryFragment : Fragment() {
             GridLayoutManager(activity, 3, RecyclerView.VERTICAL, false)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

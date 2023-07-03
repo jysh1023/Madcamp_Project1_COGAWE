@@ -2,4 +2,6 @@
 <resources>
     <dimen name="gallery_image_width">600dp</dimen>
     <dimen name="gallery_image_height">600dp</dimen>
+    <dimen name="temperature_size">100dp</dimen>
+    <dimen name="weather_icon_size">100dp</dimen>
 </resources>

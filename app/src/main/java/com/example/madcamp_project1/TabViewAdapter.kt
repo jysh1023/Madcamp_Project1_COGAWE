@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.madcamp_project1.contact.ContactFragment
 import com.example.madcamp_project1.gallery.GalleryFragment
+import com.example.madcamp_project1.weather.WeatherFragment
 import java.lang.RuntimeException
 
 class TabViewAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activity) {
@@ -16,7 +17,7 @@ class TabViewAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activit
         return when (position) {
             0 -> ContactFragment()
             1 -> GalleryFragment()
-            2 -> GalleryFragment()  // todo: Tab3Fragment
+            2 -> WeatherFragment()
             else -> throw RuntimeException("Invalid Position : $position")
         }
     }

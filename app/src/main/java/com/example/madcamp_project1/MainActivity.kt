@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
                 when (position) {
                     0 -> tab.text = "Contact"
                     1 -> tab.text = "Gallery"
-                    2 -> tab.text = "???"
+                    2 -> tab.text = "Weather"
                 }
             }
 

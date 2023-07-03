@@ -55,7 +55,10 @@ class RecyclerViewAdapter(private val contact:Contact) :
 
                             if (user.name.lowercase().contains(charString.lowercase())) {
                                 filteredList.add(user)
+                            } else if (user.contact.contains(charString)){
+                                filteredList.add(user)
                             }
+
                         }
                         contactFiltered = filteredList
                     }

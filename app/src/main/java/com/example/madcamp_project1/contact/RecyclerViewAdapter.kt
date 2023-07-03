@@ -41,7 +41,7 @@ class RecyclerViewAdapter(private val contact:Contact) :
     }
 
     override fun onBindViewHolder(holder: RecyclerViewAdapter.ViewHolder, position: Int) {
-        holder.bind(contactFiltered[position])
+        holder.bind(contact[position])
         holder.itemView.setOnClickListener{
             itemClickListener?.onItemClick(position)
         }

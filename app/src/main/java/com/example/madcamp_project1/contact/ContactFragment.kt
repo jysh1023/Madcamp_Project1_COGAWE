@@ -20,6 +20,7 @@ class ContactFragment : Fragment(){
     private val bind get() = _bind!!
 
     lateinit var contactDetail: ContactDetailDialog
+    lateinit var adapter: RecyclerViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,19 +39,10 @@ class ContactFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
         val dataset = readFromJSON("contact.json")
-        val adapter = RecyclerViewAdapter(dataset!!)
+        adapter = RecyclerViewAdapter(dataset!!)
 
         bind.recyclerView.adapter = adapter
         bind.recyclerView.layoutManager=LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
-
-        adapter.itemClickListener = object : RecyclerViewAdapter.OnItemClickListener{
-            override fun onItemClick(position: Int) {
-                val item = dataset[position]
-//                Toast.makeText(context,"Clicked ${item.name}", Toast.LENGTH_SHORT).show()
-                contactDetail = ContactDetailDialog(item)
-                contactDetail.show(activity?.supportFragmentManager!!, "test")
-            }
-        }
 
         bind.searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -64,6 +56,15 @@ class ContactFragment : Fragment(){
             }
 
         })
+
+        adapter.itemClickListener = object : RecyclerViewAdapter.OnItemClickListener{
+            override fun onItemClick(position: Int) {
+                val item = dataset[position]
+//                Toast.makeText(context,"Clicked ${item.name}", Toast.LENGTH_SHORT).show()
+                contactDetail = ContactDetailDialog(item)
+                contactDetail.show(activity?.supportFragmentManager!!, "test")
+            }
+        }
     }
 
     private fun readFromJSON(fileName: String): Contact? {
@@ -80,6 +81,10 @@ class ContactFragment : Fragment(){
             e.printStackTrace()
         }
         return result
+    }
+
+    fun setFilter() {
+
     }
 
 

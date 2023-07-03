@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.madcamp_project1.databinding.FragmentContactBinding
@@ -40,6 +41,13 @@ class ContactFragment : Fragment(){
         bind.recyclerView.adapter = adapter
         bind.recyclerView.layoutManager=LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 
+        adapter.itemClickListener = object : RecyclerViewAdapter.OnItemClickListener{
+            override fun onItemClick(position: Int) {
+                val item = dataset[position]
+                Toast.makeText(context,"Clicked ${item.name}", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         bind.searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
@@ -69,5 +77,6 @@ class ContactFragment : Fragment(){
         }
         return result
     }
+
 
 }

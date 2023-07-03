@@ -13,11 +13,17 @@ class RecyclerViewAdapter(private val contact:Contact) :
 
     var contactFiltered: ArrayList<ContactData> = ArrayList()
 
+    interface OnItemClickListener {
+        fun onItemClick(position: Int){}
+    }
+
+    var itemClickListener: OnItemClickListener?= null
+
     init {
         contactFiltered = contact
     }
 
-    class ViewHolder(private val binding: ItemContactBinding): RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(private val binding: ItemContactBinding): RecyclerView.ViewHolder(binding.root){
 
         fun bind(data: ContactData){
             with(binding) {
@@ -25,6 +31,7 @@ class RecyclerViewAdapter(private val contact:Contact) :
                 userContact.text = data.contact
             }
         }
+
     }
 
 
@@ -35,6 +42,9 @@ class RecyclerViewAdapter(private val contact:Contact) :
 
     override fun onBindViewHolder(holder: RecyclerViewAdapter.ViewHolder, position: Int) {
         holder.bind(contactFiltered[position])
+        holder.itemView.setOnClickListener{
+            itemClickListener?.onItemClick(position)
+        }
     }
 
     override fun getItemCount(): Int {

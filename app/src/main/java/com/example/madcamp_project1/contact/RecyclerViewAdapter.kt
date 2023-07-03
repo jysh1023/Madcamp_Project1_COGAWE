@@ -8,9 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.madcamp_project1.databinding.ItemContactBinding
 
 
-class RecyclerViewAdapter(private val contact:Contact) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(), Filterable {
+class RecyclerViewAdapter(private val contact:Contact) :
+    RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(), Filterable {
 
     var contactFiltered: ArrayList<ContactData> = ArrayList()
+
+    init {
+        contactFiltered = contact
+    }
 
     class ViewHolder(private val binding: ItemContactBinding): RecyclerView.ViewHolder(binding.root){
 
@@ -22,17 +27,18 @@ class RecyclerViewAdapter(private val contact:Contact) : RecyclerView.Adapter<Re
         }
     }
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemContactBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerViewAdapter.ViewHolder, position: Int) {
-        holder.bind(contact[position])
+        holder.bind(contactFiltered[position])
     }
 
     override fun getItemCount(): Int {
-        return contact.size
+        return contactFiltered.size
     }
 
 
@@ -57,6 +63,7 @@ class RecyclerViewAdapter(private val contact:Contact) : RecyclerView.Adapter<Re
 
                 val filterResults = FilterResults()
                 filterResults.values = contactFiltered
+                filterResults.count = contactFiltered.size
 
                 return filterResults
             }

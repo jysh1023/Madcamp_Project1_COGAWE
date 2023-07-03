@@ -1,6 +1,7 @@
 package com.example.madcamp_project1.contact
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,16 +13,15 @@ import com.example.madcamp_project1.databinding.FragmentContactBinding
 import com.google.gson.Gson
 import java.io.IOException
 
-class ContactFragment : Fragment(), SearchView.OnQueryTextListener {
+class ContactFragment : Fragment(){
 
     private var _bind: FragmentContactBinding? = null
     private val bind get() = _bind!!
 
-    private lateinit var contactAdapter: RecyclerViewAdapter
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,6 +39,19 @@ class ContactFragment : Fragment(), SearchView.OnQueryTextListener {
 
         bind.recyclerView.adapter = adapter
         bind.recyclerView.layoutManager=LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+
+        bind.searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                Log.d("My TAG", "detected")
+                adapter.filter.filter(newText)
+                return true
+            }
+
+        })
     }
 
     private fun readFromJSON(fileName: String): Contact? {
@@ -56,30 +69,5 @@ class ContactFragment : Fragment(), SearchView.OnQueryTextListener {
         }
         return result
     }
-
-    private fun searchFromJSON(data: ArrayList<ContactData>, string: String): ContactData{
-
-        var result: ContactData? = null
-
-        for(item in data){
-            when(item.name){
-                string -> result = item
-                else -> {}
-            }
-        }
-
-        return result!!
-
-    }
-
-    override fun onQueryTextSubmit(p0: String?): Boolean {
-        return false
-    }
-
-    override fun onQueryTextChange(p0: String?): Boolean {
-        contactAdapter.filter.filter(p0)
-        return true
-    }
-
 
 }

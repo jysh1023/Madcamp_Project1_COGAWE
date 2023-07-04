@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import com.example.madcamp_project1.R
 import com.example.madcamp_project1.databinding.FragmentWeatherBinding
+import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -139,15 +140,17 @@ class WeatherFragment : Fragment() {
                         }.orEmpty()
                     }
                     binding.weatherSummary.text = "${weatherInfo["weatherSummary"]}"
-                    binding.weatherIcon.setImageResource(
-                        when(weatherInfo["weatherSummary"]) {
-                            in listOf("맑음") -> R.drawable.sky_sunny
-                            in listOf("구름 많음") -> R.drawable.sky_many_cloud
-                            in listOf("흐림") -> R.drawable.sky_cloudy
-                            in listOf("비", "비/눈", "눈", "빗방울", "빗방울/눈날림", "눈날림") -> R.drawable.sky_rainy
-                            else -> R.drawable.sky_sunny
-                        }
-                    )
+                    val src = when(weatherInfo["weatherSummary"]) {
+                        in listOf("맑음") -> R.drawable.sky_sunny
+                        in listOf("구름 많음") -> R.drawable.sky_many_cloud
+                        in listOf("흐림") -> R.drawable.sky_cloudy
+                        in listOf("비", "비/눈", "눈", "빗방울", "빗방울/눈날림", "눈날림") -> R.drawable.sky_rainy
+                        else -> R.drawable.sky_sunny
+                    }
+                    Picasso.get()
+                        .load(src)
+                        .into(binding.weatherIcon)
+//                    binding.weatherIcon.setImageResource
                 }
             }
         )

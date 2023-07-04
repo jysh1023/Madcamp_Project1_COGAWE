@@ -6,4 +6,8 @@
     <dimen name="temperature_text_size">70dp</dimen>
     <dimen name="weather_icon_size">120dp</dimen>
     <dimen name="weather_summary_icon_size">170dp</dimen>
+    <dimen name="weather_card_corner_radius">4dp</dimen>
+    <dimen name="weather_card_padding_horizontal">25dp</dimen>
+    <dimen name="weather_card_padding_vertical">20dp</dimen>
+    <dimen name="weather_card_text_size">20dp</dimen>
 </resources>

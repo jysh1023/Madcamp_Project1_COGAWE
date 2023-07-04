@@ -1,5 +1,7 @@
 package com.example.madcamp_project1.contact
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -39,6 +41,14 @@ class ContactDetailDialog (item : ContactData) : DialogFragment(){
         bind.userContact.text = contact
         bind.userSchool.text = school
         bind.userInterest.text = interest
+
+        bind.callButton.setOnClickListener {
+
+            val telNumber = "tel:${contact}"
+
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(telNumber))
+            startActivity(intent)
+        }
 
         return bind.root
     }

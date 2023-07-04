@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.FragmentTransaction
 import com.example.madcamp_project1.contact.ContactFragment
 import com.example.madcamp_project1.contact.NewContactDialog
+import android.transition.ChangeBounds
 import com.example.madcamp_project1.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
 

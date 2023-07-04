@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/silver"
     android:orientation="vertical"
-    tools:context=".GalleryActivity">
+    tools:context=".gallery.GalleryActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.example.madcamp_project1.ZoomableImageView
+        <com.example.madcamp_project1.gallery.ZoomableImageView
             android:id="@+id/photoDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,7 +28,8 @@
             android:id="@+id/fullDescriptionTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:layout_marginHorizontal="20dp" />
 
     </LinearLayout>
 

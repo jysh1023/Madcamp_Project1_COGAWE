@@ -1,9 +1,8 @@
-package com.example.madcamp_project1
+package com.example.madcamp_project1.gallery
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.madcamp_project1.databinding.ActivityGalleryBinding
-import com.example.madcamp_project1.gallery.PhotoData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.IOException

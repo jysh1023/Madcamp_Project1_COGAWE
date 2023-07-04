@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.madcamp_project1.GalleryActivity
 import com.example.madcamp_project1.R
 import com.example.madcamp_project1.databinding.FragmentGalleryBinding
 import com.google.gson.Gson

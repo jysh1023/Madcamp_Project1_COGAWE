@@ -1,11 +1,14 @@
-package com.example.madcamp_project1
+package com.example.madcamp_project1.gallery
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.example.madcamp_project1.R
 import com.example.madcamp_project1.databinding.ItemPhotoDetailBinding
-import com.example.madcamp_project1.gallery.PhotoData
 import com.squareup.picasso.Picasso
+import com.squareup.picasso.Request
 
 class GalleryViewPagerAdapter(photoDataList: MutableList<PhotoData>) :
     RecyclerView.Adapter<GalleryViewPagerAdapter.PagerViewHolder>() {
@@ -29,6 +32,9 @@ class GalleryViewPagerAdapter(photoDataList: MutableList<PhotoData>) :
                 .load(data.photoUri.ifBlank { "https://avatars.githubusercontent.com/u/86835564?s=200&v=4" })
                 .resizeDimen(R.dimen.gallery_image_width, R.dimen.gallery_image_height)
                 .centerInside()
+//                for Glide
+//                .apply(RequestOptions.overrideOf(R.dimen.gallery_image_width, R.dimen.gallery_image_height))
+//                .apply(RequestOptions.centerInsideTransform())
                 .into(binding.photoDetail)
             binding.fullDescriptionTextView.text = data.photoDescription
         }

@@ -45,7 +45,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/forecast_time"
+                android:id="@+id/ncst_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""
@@ -64,7 +64,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/weather_ultra_srt_fcst_recycler_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:paddingVertical="20dp"/>
 
     <LinearLayout
         android:id="@+id/weather_linear_2"

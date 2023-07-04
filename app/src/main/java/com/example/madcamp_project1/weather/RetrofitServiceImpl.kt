@@ -10,5 +10,7 @@ object RetrofitServiceImpl {
 //        .addCallAdapterFactory(RxJava3?)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-    val service: RetrofitService = retrofit.create(RetrofitService::class.java)
+    val service: RetrofitService by lazy {
+        retrofit.create(RetrofitService::class.java)
+    }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -54,8 +55,8 @@
             android:paddingBottom="5dp">
 
             <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/contact_icon" />
 
             <TextView
@@ -63,7 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Contact"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:textAlignment="center"
                 android:layout_marginStart="7dp"/>
 
@@ -77,8 +78,8 @@
             android:paddingBottom="5dp">
 
             <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/school_icon"/>
 
             <TextView
@@ -86,7 +87,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="School"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:textAlignment="center"
                 android:layout_marginStart="7dp"/>
 
@@ -100,8 +101,8 @@
             android:paddingBottom="5dp">
 
             <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/interest_icon"/>
 
             <TextView
@@ -109,11 +110,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Interest"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:textAlignment="center"
                 android:layout_marginStart="7dp"/>
 
         </LinearLayout>
+
+
+        <Button
+            android:id="@+id/callButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="전화걸기"
+            android:textSize="14dp"
+            tools:ignore="TextSizeCheck"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"/>
 
 
     </LinearLayout>

@@ -1,4 +1,4 @@
-package com.example.madcamp_project1
+package com.example.madcamp_project1.gallery
 
 import android.content.Context
 import android.graphics.Matrix

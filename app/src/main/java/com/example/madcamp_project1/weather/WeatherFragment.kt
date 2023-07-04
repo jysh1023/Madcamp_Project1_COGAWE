@@ -74,7 +74,7 @@ class WeatherFragment : Fragment() {
                     for (item in items) {
                         val (category, obsrValue, fcstValue, fcstDate, fcstTime) = item
                         when(category) {
-                            "T1H" -> weatherInfo["temperature"] = "${obsrValue}°"
+                            "T1H" -> weatherInfo["temperature"] = "%.1f°".format(obsrValue.toFloat())
                             "REH" -> weatherInfo["humidity"] = "습도 ${obsrValue}%"
                             "WSD" -> weatherInfo["wind"] = "바람 ${obsrValue}m/s"
                         }

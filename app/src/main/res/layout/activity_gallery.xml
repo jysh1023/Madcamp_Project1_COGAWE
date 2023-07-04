@@ -3,9 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/silver"
     android:orientation="vertical"
-    tools:context=".GalleryActivity">
+    tools:context=".gallery.GalleryActivity">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPagerPhotoDetail"

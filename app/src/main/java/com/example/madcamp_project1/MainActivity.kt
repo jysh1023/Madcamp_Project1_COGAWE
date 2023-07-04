@@ -2,6 +2,9 @@ package com.example.madcamp_project1
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.FragmentTransaction
+import com.example.madcamp_project1.contact.ContactFragment
+import com.example.madcamp_project1.contact.NewContactDialog
 import com.example.madcamp_project1.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -26,6 +29,13 @@ class MainActivity : AppCompatActivity() {
 
         binding.viewPager.adapter = TabViewAdapter(this)
         tabLayoutMediator.attach()
+
+        val fragmentTransaction : FragmentTransaction = supportFragmentManager.beginTransaction()
+
+        fragmentTransaction.apply {
+            add(R.id.recyclerView, ContactFragment())
+            add(R.id.newContact, NewContactDialog())
+        }
     }
 
     override fun onDestroy() {

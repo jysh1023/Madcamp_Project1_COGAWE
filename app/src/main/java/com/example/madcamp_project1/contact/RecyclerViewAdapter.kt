@@ -12,7 +12,8 @@ import com.example.madcamp_project1.databinding.ItemContactBinding
 class RecyclerViewAdapter(private val contact:Contact) :
     RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(), Filterable {
 
-    var contactFiltered: ArrayList<ContactData> = ArrayList()
+    var contactFiltered: ArrayList<ContactData>
+    var currContact : ArrayList<ContactData>
 
     interface OnItemClickListener {
         fun onItemClick(position: Int){}
@@ -22,7 +23,9 @@ class RecyclerViewAdapter(private val contact:Contact) :
 
     init {
         contactFiltered = contact
+        currContact = contact
     }
+
 
     inner class ViewHolder(private val binding: ItemContactBinding): RecyclerView.ViewHolder(binding.root){
 
@@ -60,11 +63,11 @@ class RecyclerViewAdapter(private val contact:Contact) :
             override fun performFiltering(p0: CharSequence?): FilterResults {
                 val charString = p0.toString()
                 if (charString.isEmpty()){
-                    contactFiltered = contact
+                    contactFiltered = currContact
                 } else{
                     var filteredList = ArrayList<ContactData>()
-                    if (contact != null) {
-                        for (user in contact) {
+                    if (currContact != null) {
+                        for (user in currContact) {
 
                             if (user.name.lowercase().contains(charString.lowercase())) {
                                 filteredList.add(user)
@@ -93,5 +96,6 @@ class RecyclerViewAdapter(private val contact:Contact) :
 
         }
     }
+
 
 }

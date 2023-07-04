@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".contact.ContactFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/contactFragment">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView"

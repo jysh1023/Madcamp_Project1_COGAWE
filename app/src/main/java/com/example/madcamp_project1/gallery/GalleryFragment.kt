@@ -53,6 +53,7 @@ class GalleryFragment : Fragment() {
             }
         })
         adapter.photoList = readFromJSON("gallery.json") ?: mutableListOf()
+        binding.recyclerView.setItemViewCacheSize(20)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager =
             GridLayoutManager(activity, 3, RecyclerView.VERTICAL, false)

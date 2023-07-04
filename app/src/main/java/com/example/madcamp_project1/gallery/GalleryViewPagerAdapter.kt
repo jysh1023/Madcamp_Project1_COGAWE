@@ -30,7 +30,7 @@ class GalleryViewPagerAdapter(photoDataList: MutableList<PhotoData>) :
         fun bind(data: PhotoData) {
             Picasso.get()
                 .load(data.photoUri.ifBlank { "https://avatars.githubusercontent.com/u/86835564?s=200&v=4" })
-                .resizeDimen(R.dimen.gallery_image_width, R.dimen.gallery_image_height)
+                .resizeDimen(R.dimen.gallery_detail_image_size, R.dimen.gallery_detail_image_size)
                 .centerInside()
 //                for Glide
 //                .apply(RequestOptions.overrideOf(R.dimen.gallery_image_width, R.dimen.gallery_image_height))

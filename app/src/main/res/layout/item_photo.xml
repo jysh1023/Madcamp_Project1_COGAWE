@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/photoPreview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
         android:adjustViewBounds="true"
         android:transitionName="imgTransition"
         app:layout_constraintBottom_toBottomOf="parent"

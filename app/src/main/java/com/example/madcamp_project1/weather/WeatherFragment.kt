@@ -8,14 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import com.example.madcamp_project1.R
 import com.example.madcamp_project1.databinding.FragmentWeatherBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.GregorianCalendar
 
@@ -23,11 +21,13 @@ class WeatherFragment : Fragment() {
     private var _binding: FragmentWeatherBinding? = null
     private val binding get() = _binding!!
 
+    private val weatherInfo: MutableMap<String, String> = mutableMapOf()
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,10 +35,9 @@ class WeatherFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentWeatherBinding.inflate(layoutInflater, container, false)
 
-
         var baseDate: String = "20230704"
         var baseTime: String = "0500"
-        
+
         // 초단기실황
         // base_time: HH:00, api 제공: +40분
         // mm >= 40 -> HH:00
@@ -56,7 +55,7 @@ class WeatherFragment : Fragment() {
         RetrofitServiceImpl.service.getUltraSrtNcst(8, 1, baseDate, baseTime).enqueue(
             object : Callback<Weather> {
                 override fun onFailure(call: Call<Weather>?, t: Throwable?) {
-                    Log.e("retrofit", t.toString())
+                    Log.e("myapp", t.toString())
                     throw IllegalStateException("fail on getWeather")
                 }
 
@@ -68,19 +67,20 @@ class WeatherFragment : Fragment() {
                     val (res) = weather
                     val (header, body) = res
                     if (header.component1() != 0) {
-                        // todo: api error handling
-                        binding.temperature.text = "api error"
-                        return
+                        throw IllegalStateException("api error")
                     }
                     val items = body.component2().component1()
                     for (item in items) {
                         val (category, obsrValue, fcstValue, fcstDate, fcstTime) = item
                         when(category) {
-                            "T1H" -> binding.temperature.text = "${obsrValue}°"
-                            "REH" -> binding.humidity.text = "습도 ${obsrValue}%"
-                            "WSD" -> binding.wind.text = "바람 ${obsrValue}m/s"
+                            "T1H" -> weatherInfo["temperature"] = "${obsrValue}°"
+                            "REH" -> weatherInfo["humidity"] = "습도 ${obsrValue}%"
+                            "WSD" -> weatherInfo["wind"] = "바람 ${obsrValue}m/s"
                         }
                     }
+                    binding.temperature.text = "${weatherInfo["temperature"]}"
+                    binding.wind.text = "${weatherInfo["wind"]}"
+                    binding.humidity.text = "${weatherInfo["humidity"]}"
                 }
             }
         )
@@ -102,7 +102,7 @@ class WeatherFragment : Fragment() {
         RetrofitServiceImpl.service.getUltraSrtFcst(10, 1, baseDate, baseTime).enqueue(
             object : Callback<Weather> {
                 override fun onFailure(call: Call<Weather>?, t: Throwable?) {
-                    Log.e("retrofit", t.toString())
+                    Log.e("myapp", t.toString())
                     throw IllegalStateException("fail on getWeather")
                 }
 
@@ -114,35 +114,48 @@ class WeatherFragment : Fragment() {
                     val (res) = weather
                     val (header, body) = res
                     if (header.component1() != 0) {
-                        // todo: api error handling
-                        binding.temperature.text = "api error"
-                        return
+                        throw IllegalStateException("api error")
                     }
                     val items = body.component2().component1()
                     for (item in items) {
                         val (category, obsrValue, fcstValue, fcstDate, fcstTime) = item
-                        when(category) {
+                        weatherInfo["weatherSummary"] = when(category) {
                             "SKY" -> when(fcstValue) {
-                                "1" -> binding.weatherSummary.text = "맑음"
-                                "3" -> binding.weatherSummary.text = "구름많음"
-                                "4" -> binding.weatherSummary.text = "흐림"
+                                "1" -> "맑음"
+                                "2" -> "구름 많음"
+                                "4" -> "흐림"
+                                else -> null
                             }
                             "PTY" -> when(fcstValue) {
-                                "1" -> binding.weatherSummary.text = "비"
-                                "2" -> binding.weatherSummary.text = "비/눈"
-                                "3" -> binding.weatherSummary.text = "눈"
-                                "5" -> binding.weatherSummary.text = "빗방울"
-                                "6" -> binding.weatherSummary.text = "빗방울/눈날림"
-                                "7" -> binding.weatherSummary.text = "눈날림"
+                                "1" -> "비"
+                                "2" -> "비/눈"
+                                "3" -> "눈"
+                                "5" -> "빗방울"
+                                "6" -> "빗방울/눈날림"
+                                "7" -> "눈날림"
+                                else -> null
                             }
-                        }
+                            else -> null
+                        }.orEmpty()
                     }
+                    binding.weatherSummary.text = "${weatherInfo["weatherSummary"]}"
+                    binding.weatherIcon.setImageResource(
+                        when(weatherInfo["weatherSummary"]) {
+                            in listOf("맑음") -> R.drawable.sky_sunny
+                            in listOf("구름 많음") -> R.drawable.sky_many_cloud
+                            in listOf("흐림") -> R.drawable.sky_cloudy
+                            in listOf("비", "비/눈", "눈", "빗방울", "빗방울/눈날림", "눈날림") -> R.drawable.sky_rainy
+                            else -> R.drawable.sky_sunny
+                        }
+                    )
                 }
             }
         )
-        
+
         // 단기예보
         // base_time 3x+2:00, api 제공 +10분
+
+
 
         return binding.root
     }

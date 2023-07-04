@@ -8,9 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.madcamp_project1.R
 import com.example.madcamp_project1.databinding.FragmentWeatherBinding
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,10 +27,24 @@ class WeatherFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val weatherInfo: MutableMap<String, String> = mutableMapOf()
+    private val hourList: MutableList<Int> = mutableListOf()
+    private val summaryList: MutableList<String> = mutableListOf()
+    private val tmpList: MutableList<Float> = mutableListOf()
+    private val fcstList: MutableList<FcstData> = mutableListOf()
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        weatherInfo.clear()
+        hourList.clear()
+        summaryList.clear()
+        tmpList.clear()
+        fcstList.clear()
+        for (i in 1..6) {
+            hourList.add(-1)
+            summaryList.add("sample")
+            tmpList.add(-1F)
+        }
     }
 
     override fun onCreateView(
@@ -44,15 +62,17 @@ class WeatherFragment : Fragment() {
         // mm >= 40 -> HH:00
         // mm < 40 -> HH-1:00
         var calendar = Calendar.getInstance()
-        if(calendar.get(Calendar.MINUTE) >= 40) {
+        if (calendar.get(Calendar.MINUTE) >= 40) {
             calendar.set(GregorianCalendar.MINUTE, 0)
-        }
-        else {
+        } else {
             calendar.set(GregorianCalendar.MINUTE, 0)
-            calendar.add(GregorianCalendar.HOUR, -1)
+            calendar.add(GregorianCalendar.HOUR_OF_DAY, -1)
         }
         baseDate = calendarToString(calendar, "yyyyMMdd")
-        baseTime = calendarToString(calendar, "hhmm")
+        baseTime = calendarToString(calendar, "HHmm")
+//        viewModelScope.launch {
+//
+//        }
         RetrofitServiceImpl.service.getUltraSrtNcst(8, 1, baseDate, baseTime).enqueue(
             object : Callback<Weather> {
                 override fun onFailure(call: Call<Weather>?, t: Throwable?) {
@@ -73,8 +93,10 @@ class WeatherFragment : Fragment() {
                     val items = body.component2().component1()
                     for (item in items) {
                         val (category, obsrValue, fcstValue, fcstDate, fcstTime) = item
-                        when(category) {
-                            "T1H" -> weatherInfo["temperature"] = "%.1f°".format(obsrValue.toFloat())
+                        when (category) {
+                            "T1H" -> weatherInfo["temperature"] =
+                                "%.1f°".format(obsrValue.toFloat())
+
                             "REH" -> weatherInfo["humidity"] = "습도 ${obsrValue}%"
                             "WSD" -> weatherInfo["wind"] = "바람 ${obsrValue}m/s"
                         }
@@ -91,16 +113,18 @@ class WeatherFragment : Fragment() {
         // mm >= 45 -> HH:30
         // mm < 45  -> HH-1:30
         calendar = Calendar.getInstance()
-        if(calendar.get(Calendar.MINUTE) >= 45) {
+        if (calendar.get(Calendar.MINUTE) >= 45) {
             calendar.set(GregorianCalendar.MINUTE, 30)
-        }
-        else {
+        } else {
             calendar.set(GregorianCalendar.MINUTE, 30)
             calendar.add(GregorianCalendar.HOUR, -1)
         }
         baseDate = calendarToString(calendar, "yyyyMMdd")
-        baseTime = calendarToString(calendar, "hhmm")
-        RetrofitServiceImpl.service.getUltraSrtFcst(10, 1, baseDate, baseTime).enqueue(
+        baseTime = calendarToString(calendar, "HHmm")
+
+        // [h, h+1), ... , [h+5, h+6)
+        // #(category) = 10
+        RetrofitServiceImpl.service.getUltraSrtFcst(6 * 10, 1, baseDate, baseTime).enqueue(
             object : Callback<Weather> {
                 override fun onFailure(call: Call<Weather>?, t: Throwable?) {
                     Log.e("myapp", t.toString())
@@ -118,16 +142,23 @@ class WeatherFragment : Fragment() {
                         throw IllegalStateException("api error")
                     }
                     val items = body.component2().component1()
+//                    Log.d("weather", "items: " + items.toString())
+//                    Log.d("weather", "call: " + call.toString())
+
+                    var idx: Int = 0
                     for (item in items) {
                         val (category, obsrValue, fcstValue, fcstDate, fcstTime) = item
-                        weatherInfo["weatherSummary"] = when(category) {
-                            "SKY" -> when(fcstValue) {
+//                        Log.d("weather", "fcstTime: " + weatherInfo["fcstTime"])
+
+                        when (category) {
+                            "SKY" -> summaryList[idx % 6] = when (fcstValue) {
                                 "1" -> "맑음"
                                 "2" -> "구름 많음"
                                 "4" -> "흐림"
                                 else -> null
-                            }
-                            "PTY" -> when(fcstValue) {
+                            } ?: summaryList[idx % 6]
+
+                            "PTY" -> summaryList[idx % 6] = when (fcstValue) {
                                 "1" -> "비"
                                 "2" -> "비/눈"
                                 "3" -> "눈"
@@ -135,32 +166,61 @@ class WeatherFragment : Fragment() {
                                 "6" -> "빗방울/눈날림"
                                 "7" -> "눈날림"
                                 else -> null
+                            } ?: summaryList[idx % 6]
+
+                            "T1H" -> {
+                                hourList[idx % 6] = fcstTime.toInt() / 100
+                                tmpList[idx % 6] = fcstValue.toFloat()
                             }
-                            else -> null
-                        }.orEmpty()
+                        }
+
+                        idx += 1
                     }
-                    binding.weatherSummary.text = "${weatherInfo["weatherSummary"]}"
-                    val src = when(weatherInfo["weatherSummary"]) {
-                        in listOf("맑음") -> R.drawable.sky_sunny
-                        in listOf("구름 많음") -> R.drawable.sky_many_cloud
-                        in listOf("흐림") -> R.drawable.sky_cloudy
-                        in listOf("비", "비/눈", "눈", "빗방울", "빗방울/눈날림", "눈날림") -> R.drawable.sky_rainy
-                        else -> R.drawable.sky_sunny
-                    }
+
+//                  Log.d("weather", "binding!: " + weatherInfo.toString())
+
+                    binding.forecastTime.text = "${hourList[0]}시"
+                    binding.weatherSummary.text = summaryList[0]
+                    binding.temperature.text = "${tmpList[0]}°"
+
+                    val src = summaryToIconId(summaryList[0])
                     Picasso.get()
                         .load(src)
                         .into(binding.weatherIcon)
-//                    binding.weatherIcon.setImageResource
+
+                    for (i in 0..5) {
+                        fcstList.add(
+                            FcstData(
+                                hourList[i],
+                                summaryToIconId(summaryList[i]),
+                                tmpList[i]
+                            )
+                        )
+                    }
+                    Log.d("weather", fcstList.toString())
                 }
             }
         )
 
         // 단기예보
         // base_time 3x+2:00, api 제공 +10분
-
-
-
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val adapter = SrtFcstRecyclerViewAdapter()
+//        adapter.fcstList = fcstList
+        adapter.fcstList.add(FcstData(7, R.drawable.sky_rainy, 23.5F))
+        adapter.fcstList.add(FcstData(8, R.drawable.sky_rainy, 23.6F))
+        adapter.fcstList.add(FcstData(9, R.drawable.sky_rainy, 23.5F))
+        adapter.fcstList.add(FcstData(10, R.drawable.sky_many_cloud, 23.7F))
+        adapter.fcstList.add(FcstData(11, R.drawable.sky_cloudy, 27.5F))
+        adapter.fcstList.add(FcstData(12, R.drawable.sky_sunny, 29.6F))
+        binding.weatherUltraSrtFcstRecyclerView.adapter = adapter
+        binding.weatherUltraSrtFcstRecyclerView.layoutManager =
+            LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
     }
 
     override fun onDestroyView() {
@@ -168,8 +228,26 @@ class WeatherFragment : Fragment() {
         _binding = null
     }
 
-    fun calendarToString(calendar: Calendar, format: String): String {
+    private fun calendarToString(calendar: Calendar, format: String): String {
         val dateFormat = SimpleDateFormat(format)
         return dateFormat.format(calendar.time)
+    }
+
+    private fun summaryToIconId(summary: String?): Int {
+        return when (summary) {
+            in listOf("맑음") -> R.drawable.sky_sunny
+            in listOf("구름 많음") -> R.drawable.sky_many_cloud
+            in listOf("흐림") -> R.drawable.sky_cloudy
+            in listOf(
+                "비",
+                "비/눈",
+                "눈",
+                "빗방울",
+                "빗방울/눈날림",
+                "눈날림"
+            ) -> R.drawable.sky_rainy
+
+            else -> R.drawable.sky_sunny
+        }
     }
 }

@@ -11,4 +11,5 @@
     <dimen name="weather_card_padding_vertical">20dp</dimen>
     <dimen name="weather_card_text_size">20dp</dimen>
     <dimen name="photo_detail_description_text_size">20dp</dimen>
+    <dimen name="item_ultra_srt_fcst_sky_icon_size">70dp</dimen>
 </resources>

@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <!--        android:largeHeap="true"-->
+    <!--        android:hardwareAccelerated="false"-->
     <application
         android:usesCleartextTraffic="true"
         android:allowBackup="true"

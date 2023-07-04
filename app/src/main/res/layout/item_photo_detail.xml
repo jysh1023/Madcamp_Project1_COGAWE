@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/silver"
     android:orientation="vertical"
     tools:context=".gallery.GalleryActivity">
 
@@ -29,6 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
+            android:textSize="@dimen/photo_detail_description_text_size"
             android:layout_marginHorizontal="20dp" />
 
     </LinearLayout>

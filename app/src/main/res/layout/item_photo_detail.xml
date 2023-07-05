@@ -24,13 +24,13 @@
             android:src="@mipmap/ic_launcher"
             android:transitionName="imgTransition" />
 
-        <TextView
-            android:id="@+id/fullDescriptionTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="@dimen/photo_detail_description_text_size"
-            android:layout_marginHorizontal="20dp"/>
+<!--        <TextView-->
+<!--            android:id="@+id/fullDescriptionTextView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textSize="@dimen/photo_detail_description_text_size"-->
+<!--            android:layout_marginHorizontal="20dp"/>-->
 
     </LinearLayout>
 

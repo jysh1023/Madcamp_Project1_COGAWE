@@ -49,7 +49,6 @@ class GalleryFragment : Fragment() {
                     UtilPair.create(imgView, imgView.transitionName)
                 )
                 startActivity(intent, options.toBundle())
-
             }
         })
         adapter.photoList = readFromJSON("gallery.json") ?: mutableListOf()

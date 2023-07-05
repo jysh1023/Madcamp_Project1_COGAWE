@@ -33,7 +33,7 @@ class GalleryViewPagerAdapter(photoDataList: MutableList<PhotoData>) :
 //                .apply(RequestOptions.overrideOf(R.dimen.gallery_image_width, R.dimen.gallery_image_height))
 //                .apply(RequestOptions.centerInsideTransform())
                 .into(binding.photoDetail)
-            binding.fullDescriptionTextView.text = data.photoDescription
+//            binding.fullDescriptionTextView.text = data.photoDescription
         }
     }
 }

@@ -2,7 +2,7 @@
 
 Download APK File: [COGAWE][apklink]
 
-[apklink]: "/app/release/app-release.apk"
+[apklink]: app/release/app-release.apk
 
 ### 공통과제 I (6/29 ~ 7/5) - 탭 구조를 활용한 안드로이드 앱 제작
 #### 📌 목적

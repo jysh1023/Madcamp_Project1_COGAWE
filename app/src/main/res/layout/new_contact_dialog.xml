@@ -92,7 +92,7 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="match_parent"
-            android:src="@drawable/contact_icon" />
+            android:src="@drawable/interest_icon" />
 
         <EditText
             android:id="@+id/interestInput"

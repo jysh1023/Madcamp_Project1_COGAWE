@@ -108,8 +108,14 @@ class WeatherViewModel : ViewModel() {
                     in listOf(3, 7) -> R.drawable.sky_snow
                     else -> null
                 } ?: when (snd.fcstValue.toInt()) {
-                    1 -> R.drawable.sky_sunny
-                    3 -> R.drawable.sky_many_cloud
+                    1 -> when(fst.fcstTime.toInt()/100) {
+                        in 5..19 -> R.drawable.sky_sunny
+                        else -> R.drawable.sky_sunny_night
+                    }
+                    3 -> when(fst.fcstTime.toInt()/100) {
+                        in 5..19 -> R.drawable.sky_many_cloud
+                        else -> R.drawable.sky_many_cloud_night
+                    }
                     4 -> R.drawable.sky_cloudy
                     else -> null
                 },

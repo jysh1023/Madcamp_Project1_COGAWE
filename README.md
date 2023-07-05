@@ -40,7 +40,11 @@
 > - 연락처 추가하기
 > - 전화걸기
 
- <img src="/Screenshots/Contact_main.png" width="40%" height="30%" title="px(픽셀) 크기 설정" alt="Contact"></img>
+<img src="/Screenshots/Contact_main.png" width="30%" alt="Contact Main"></img>
+<img src="/Screenshots/Contact_detail.png" width="30%"  alt="Contact Detail"></img>
+<img src="/Screenshots/Contact_new.png" width="30%" alt="Contact New"></img>
+<img src="/Screenshots/Contact.gif" width="30%" alt="Contact GIF"></img>
+
 
 
 ### TAB 2 : 갤러리
@@ -49,9 +53,14 @@
 > - Preview 화면: 사진 터치(해당 사진의 detail을 보여주는 화면으로 이동)
 > - Detail 화면: pinch zoom(확대/축소), double tap(이미지 사이즈 리셋), 좌우 swipe(이전/이후 이미지로 이동), 뒤로가기(preview 화면으로 돌아가기)
 
+<img src="/Screenshots/Gallery_main.png" width="30%" alt="Gallery Main"></img>
+<img src="/Screenshots/Gallery.gif" width="30%" alt="Gallery GIF"></img>
 
 ### TAB 3 : 날씨
 #### Features
 > - 현재 날씨 실황 (기온, 하늘상태, 풍속, 습도)
 > - 단기 날씨 예보 (추후 6시간, 기온, 하늘상태)
 > - 새로고침하여 현재 정보 받아오기 (마지막으로 새로고침한 시각 표시)
+
+<img src="/Screenshots/Weather_main.png" width="30%" alt="Weather Main"></img>
+<img src="/Screenshots/Weather.gif" width="30%" alt="Weather GIF"></img>

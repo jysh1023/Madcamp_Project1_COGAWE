@@ -17,7 +17,9 @@
         android:roundIcon="@drawable/user_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.Madcamp_project1"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        android:largeHeap="true"
+        android:hardwareAccelerated="false">
         <activity
             android:name=".gallery.GalleryActivity"
             android:exported="false" />

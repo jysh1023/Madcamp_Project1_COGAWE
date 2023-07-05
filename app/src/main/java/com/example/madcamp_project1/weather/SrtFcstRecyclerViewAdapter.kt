@@ -20,6 +20,11 @@ class SrtFcstRecyclerViewAdapter : RecyclerView.Adapter<SrtFcstRecyclerViewAdapt
         holder.bind(fcstList[position])
     }
 
+    fun updateData(newData: MutableList<FcstData>) {
+        fcstList = newData
+        notifyDataSetChanged()
+    }
+
     inner class ViewHolder(private val binding: ItemUltraSrtFcstBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(fcstData: FcstData) {
@@ -28,7 +33,7 @@ class SrtFcstRecyclerViewAdapter : RecyclerView.Adapter<SrtFcstRecyclerViewAdapt
                 else -> "오후 ${(fcstData.fcstHour+11)%12+1}시"
             }
             Picasso.get()
-                .load(fcstData.fcstSkyDrawableId)
+                .load(fcstData.fcstSkyDrawableId!!)
                 .resize(100, 100)
                 .centerCrop()
                 .into(binding.srtFcstSkyIcon)

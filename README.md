@@ -17,11 +17,11 @@ Download APK File: [COGAWE][apklink]
   - TAB 3: Weather
     - 자유 주제
 
-
 👥 팀원
 -------------
 - 양성현 (카이스트 전산학부)
 - 김준서 (한양대학교 컴퓨터소프트웨어학부)
+
 
 💻 개발 환경
 -------------
@@ -31,6 +31,7 @@ Download APK File: [COGAWE][apklink]
 - IDE : Android Studio
 - Target Device: Galaxy S7
 
+<br>
 
 💫 결과물
 -------------
@@ -48,7 +49,7 @@ Download APK File: [COGAWE][apklink]
 <img src="/Screenshots/Contact_new.png" width="30%" alt="Contact New"></img>
 <img src="/Screenshots/Contact.gif" width="30%" alt="Contact GIF"></img>
 
-
+<br>
 
 ### TAB 2 : 갤러리 🌃
 #### Features
@@ -58,6 +59,8 @@ Download APK File: [COGAWE][apklink]
 
 <img src="/Screenshots/Gallery_main.png" width="30%" alt="Gallery Main"></img>
 <img src="/Screenshots/Gallery.gif" width="30%" alt="Gallery GIF"></img>
+
+<br>
 
 ### TAB 3 : 날씨🌈
 #### Features

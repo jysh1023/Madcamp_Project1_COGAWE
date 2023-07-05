@@ -42,8 +42,8 @@ class WeatherFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentWeatherBinding.inflate(layoutInflater, container, false)
 
-
-        val weatherViewModel = ViewModelProvider(activity as FragmentActivity)[WeatherViewModel::class.java]
+        val weatherViewModel =
+            ViewModelProvider(activity as FragmentActivity)[WeatherViewModel::class.java]
         weatherViewModel.ncstData.observe(activity as FragmentActivity, Observer { it ->
             binding.ncstTime.text = "${it.ncstTime}"
             binding.temperature.text = "${"%.1f".format(it.ncstTmp)}°"
@@ -52,7 +52,8 @@ class WeatherFragment : Fragment() {
         })
         weatherViewModel.fcstList.observe(activity as FragmentActivity, Observer { it ->
             binding.weatherSummary.text = it[0].fcstSkySummary
-            Picasso.get().load(it[0].fcstSkyDrawableId!!).resize(100, 100).centerCrop().into(binding.weatherIcon)
+            Picasso.get().load(it[0].fcstSkyDrawableId!!).resize(100, 100).centerCrop()
+                .into(binding.weatherIcon)
             adapter.updateData(it as MutableList<FcstData>)
         })
 

@@ -1,5 +1,9 @@
 # Mad Camp 1주차 과제 🔥
 
+Download APK File: [COGAWE][apklink]
+
+[apklink]: "app/release/app-release.apk"
+
 ### 공통과제 I (6/29 ~ 7/5) - 탭 구조를 활용한 안드로이드 앱 제작
 #### 📌 목적
 - 서로 함께 공통의 과제를 함으로써, 개발에 빠르게 익숙해지기

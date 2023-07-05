@@ -34,11 +34,10 @@
 
 ### TAB 1 : 연락처 📞
 #### Features
-> - JSON 파일에 저장된 연락처 불러오기
-> - 연락처 검색하기
-> - 연락처 상세페이지 보기
-> - 연락처 추가하기
-> - 전화걸기
+> - `assets/contact.json`에 저장된 연락처 불러오기
+> - Main 화면 : 연락처 검색하기 (이름 혹은 전화번호로 검색 가능)
+> - Detail 화면: 연락처 상세 정보 (이름, 전화번호, 학교, 관심사) & 전화걸기
+> - New contact 화면: 연락처 추가하기 (비워진 필드가 있을 경우 Toast로 경고 메시지 표시)
 
 <img src="/Screenshots/Contact_main.png" width="30%" alt="Contact Main"></img>
 <img src="/Screenshots/Contact_detail.png" width="30%"  alt="Contact Detail"></img>

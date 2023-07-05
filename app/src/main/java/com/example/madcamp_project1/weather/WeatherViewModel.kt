@@ -16,7 +16,18 @@ class WeatherViewModel : ViewModel() {
     private val _fcstList = MutableLiveData<List<FcstData>>()
     val fcstList: LiveData<List<FcstData>> get() = _fcstList
 
+    private val _ncstComplete = MutableLiveData<Boolean>()
+    val ncstComplete: LiveData<Boolean> get() = _ncstComplete
+    private val _fcstComplete = MutableLiveData<Boolean>()
+    val fcstComplete: LiveData<Boolean> get() = _fcstComplete
+
     init {
+        loadData()
+    }
+
+    fun loadData() {
+        _ncstComplete.value = false
+        _fcstComplete.value = false
         getNcsts()
         getFcsts()
     }
@@ -37,6 +48,7 @@ class WeatherViewModel : ViewModel() {
             val baseTime = calendarToString(calendar, "HHmm")
             val weatherData = RetrofitServiceImpl.service.getUltraSrtNcst(8, 1, baseDate, baseTime)
             _ncstData.value = weatherToNcst(weatherData, requestTime)
+            _ncstComplete.value = true
         }
     }
 
@@ -61,6 +73,7 @@ class WeatherViewModel : ViewModel() {
             val weatherData =
                 RetrofitServiceImpl.service.getUltraSrtFcst(6 * 10, 1, baseDate, baseTime)
             _fcstList.value = weatherToFcstList(weatherData)
+            _fcstComplete.value = true
         }
     }
 

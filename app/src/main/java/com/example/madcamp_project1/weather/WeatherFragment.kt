@@ -44,18 +44,35 @@ class WeatherFragment : Fragment() {
 
         val weatherViewModel =
             ViewModelProvider(activity as FragmentActivity)[WeatherViewModel::class.java]
-        weatherViewModel.ncstData.observe(activity as FragmentActivity, Observer { it ->
-            binding.ncstTime.text = "${it.ncstTime}"
-            binding.temperature.text = "${"%.1f".format(it.ncstTmp)}°"
-            binding.wind.text = "바람 ${it.ncstWind}m/s"
-            binding.humidity.text = "습도 ${it.ncstHumidity}%"
-        })
-        weatherViewModel.fcstList.observe(activity as FragmentActivity, Observer { it ->
-            binding.weatherSummary.text = it[0].fcstSkySummary
-            Picasso.get().load(it[0].fcstSkyDrawableId!!).resize(100, 100).centerCrop()
-                .into(binding.weatherIcon)
-            adapter.updateData(it as MutableList<FcstData>)
-        })
+
+        with(weatherViewModel) {
+            ncstData.observe(activity as FragmentActivity, Observer { it ->
+                binding.ncstTime.text = "${it.ncstTime}"
+                binding.temperature.text = "${"%.1f".format(it.ncstTmp)}°"
+                binding.wind.text = "바람 ${it.ncstWind}m/s"
+                binding.humidity.text = "습도 ${it.ncstHumidity}%"
+            })
+            fcstList.observe(activity as FragmentActivity, Observer { it ->
+                binding.weatherSummary.text = it[0].fcstSkySummary
+                Picasso.get().load(it[0].fcstSkyDrawableId!!).resize(100, 100).centerCrop()
+                    .into(binding.weatherIcon)
+                adapter.updateData(it as MutableList<FcstData>)
+            })
+            ncstComplete.observe(activity as FragmentActivity, Observer {it ->
+                if(ncstComplete.value == true && fcstComplete.value == true) {
+                    binding.swipeRefreshLayout.isRefreshing = false
+                }
+            })
+            fcstComplete.observe(activity as FragmentActivity, Observer {it ->
+                if(ncstComplete.value == true && fcstComplete.value == true) {
+                    binding.swipeRefreshLayout.isRefreshing = false
+                }
+            })
+        }
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            weatherViewModel.loadData()
+        }
 
         binding.weatherUltraSrtFcstRecyclerView.adapter = adapter
         binding.weatherUltraSrtFcstRecyclerView.layoutManager =

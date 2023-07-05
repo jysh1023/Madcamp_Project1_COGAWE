@@ -3,12 +3,9 @@ package com.example.madcamp_project1.gallery
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.example.madcamp_project1.R
 import com.example.madcamp_project1.databinding.ItemPhotoDetailBinding
 import com.squareup.picasso.Picasso
-import com.squareup.picasso.Request
 
 class GalleryViewPagerAdapter(photoDataList: MutableList<PhotoData>) :
     RecyclerView.Adapter<GalleryViewPagerAdapter.PagerViewHolder>() {

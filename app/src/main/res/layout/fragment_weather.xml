@@ -93,6 +93,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginVertical="5dp"
                 app:cardCornerRadius="10dp">
@@ -106,8 +107,9 @@
 
                     <ImageView
                         android:id="@+id/wind_icon"
-                        android:layout_width="@dimen/weather_icon_size"
+                        android:layout_width="match_parent"
                         android:layout_height="@dimen/weather_icon_size"
+                        android:adjustViewBounds="true"
                         android:src="@drawable/wind_icon" />
 
                     <TextView
@@ -123,9 +125,10 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginVertical="5dp"
-                app:cardCornerRadius="10dp">
+                app:cardCornerRadius="@dimen/weather_card_corner_radius">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -136,8 +139,9 @@
 
                     <ImageView
                         android:id="@+id/humidity_icon"
-                        android:layout_width="@dimen/weather_icon_size"
+                        android:layout_width="match_parent"
                         android:layout_height="@dimen/weather_icon_size"
+                        android:adjustViewBounds="true"
                         android:src="@drawable/humidity_icon" />
 
                     <TextView
@@ -149,7 +153,6 @@
                         android:textSize="@dimen/weather_card_text_size" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
 
         </LinearLayout>
 
